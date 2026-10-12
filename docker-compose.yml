@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  node_app:
+    image: caronkus/node-lab:latest
+    networks:
+      - node_network
+    volumes:
+      - shared_volume:/app/shared:ro
+
+  nginx_app:
+    image: caronkus/nginx-lab:latest
+    networks:
+      - nginx_network
+    volumes:
+      - ./nginx/index.html:/usr/share/nginx/html/index.html
+
+  caddy_app:
+    build: ./Caddy
+    ports:
+      - "80:80"
+    networks:
+      - node_network
+      - nginx_network
+    volumes:
+      - shared_volume:/app/shared
+
+networks:
+  node_network:
+  nginx_network:
+
+volumes:
+  shared_volume:

@@ -1,0 +1,11 @@
+{
+        auto_https disable_redirects
+}
+
+:80 {
+        basicauth {
+                user1 $2a$14$IsuKYZF4xWPnD32pXKeSBug84FVfOsDeAS.oPQPWyMuYO0K3gP79G
+                
+        }
+        reverse_proxy node_app:3000
+}
